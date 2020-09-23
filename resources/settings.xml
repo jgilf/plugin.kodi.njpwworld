@@ -6,7 +6,6 @@
 	</category>
     <category label="Advanced">
         <setting label="Language" id="lang" type="select" values="English|Japanese" default="English"/>
-        <setting id="debug" type="bool" label="32001" default="false"/>
     </category>
 </settings>
 
