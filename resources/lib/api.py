@@ -52,10 +52,10 @@ def login():
         },
         data={
             'login_id': email,
-			'pw': password,
-			'type': '1',
-			'device_identifier': '',
-		}, headers=HEADERS)
+            'pw': password,
+            'type': '1',
+            'device_identifier': '',
+        }, headers=HEADERS)
     if r.json()['status'] == 1:
         kodiutils.set_setting('api_token', r.json()['api_token'])
         kodiutils.set_setting("api_token_expiry", 60*60*24*14 + time())
