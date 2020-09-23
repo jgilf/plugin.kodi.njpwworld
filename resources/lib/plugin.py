@@ -4,7 +4,7 @@ import logging
 import routing
 import sys
 import xbmcaddon
-from resources.lib import api 
+from resources.lib import api
 from resources.lib import kodiutils
 from resources.lib import kodilogging
 from xbmcgui import ListItem
@@ -24,39 +24,57 @@ plugin = routing.Plugin()
 @plugin.route('/')
 def index():
     if not api.is_loggedin():
-        addDirectoryItem(plugin.handle, plugin.url_for(
-            login), ListItem("Login", iconImage=ADDON.getAddonInfo('icon'),
-            thumbnailImage=ADDON.getAddonInfo('icon')))
+        addDirectoryItem(
+            plugin.handle, plugin.url_for(login),
+            ListItem(
+                "Login", iconImage=ADDON.getAddonInfo('icon'),
+                thumbnailImage=ADDON.getAddonInfo('icon')))
     else:
-        addDirectoryItem(plugin.handle, plugin.url_for(
-            show_section, "live"), ListItem("Live", iconImage=ADDON.getAddonInfo('icon'),
-            thumbnailImage=ADDON.getAddonInfo('icon')), True)
-        addDirectoryItem(plugin.handle, plugin.url_for(
-            show_section, "ondemand"), ListItem("On Demand", iconImage=ADDON.getAddonInfo('icon'),
-            thumbnailImage=ADDON.getAddonInfo('icon')), True)
-        addDirectoryItem(plugin.handle, plugin.url_for(
-            logout), ListItem("Logout", iconImage=ADDON.getAddonInfo('icon'),
-            thumbnailImage=ADDON.getAddonInfo('icon')))
-    addDirectoryItem(plugin.handle, plugin.url_for(
-        open_settings), ListItem("Settings", iconImage=ADDON.getAddonInfo('icon'),
-        thumbnailImage=ADDON.getAddonInfo('icon')), True)
+        addDirectoryItem(
+            plugin.handle, plugin.url_for(show_section, "live"),
+            ListItem(
+                "Live", iconImage=ADDON.getAddonInfo('icon'),
+                thumbnailImage=ADDON.getAddonInfo('icon')),
+            True)
+        addDirectoryItem(
+            plugin.handle, plugin.url_for(show_section, "ondemand"),
+            ListItem(
+                "On Demand", iconImage=ADDON.getAddonInfo('icon'),
+                thumbnailImage=ADDON.getAddonInfo('icon')),
+            True)
+        addDirectoryItem(
+            plugin.handle, plugin.url_for(logout),
+            ListItem(
+                "Logout", iconImage=ADDON.getAddonInfo('icon'),
+                thumbnailImage=ADDON.getAddonInfo('icon')))
+    addDirectoryItem(
+        plugin.handle, plugin.url_for(open_settings),
+        ListItem(
+            "Settings", iconImage=ADDON.getAddonInfo('icon'),
+            thumbnailImage=ADDON.getAddonInfo('icon')),
+        True)
     endOfDirectory(plugin.handle)
 
 
 @plugin.route('/<section_id>')
 def show_section(section_id):
     if section_id == 'live':
-        programs = api.get_programs('p/search', params={'category_code': 'l_live'})
+        programs = api.get_programs(
+            'p/search', params={'category_code': 'l_live'})
         add_items(programs)
     if section_id == 'ondemand':
-        addDirectoryItem(plugin.handle, plugin.url_for(
-            show_section, "series"), ListItem("Series", 
-            iconImage=ADDON.getAddonInfo('icon'),
-            thumbnailImage=ADDON.getAddonInfo('icon')), True)
-        addDirectoryItem(plugin.handle, plugin.url_for(
-            show_section, "original"), ListItem("Original", 
-            iconImage=ADDON.getAddonInfo('icon'),
-            thumbnailImage=ADDON.getAddonInfo('icon')), True)
+        addDirectoryItem(
+            plugin.handle, plugin.url_for(show_section, "series"),
+            ListItem(
+                "Series", iconImage=ADDON.getAddonInfo('icon'),
+                thumbnailImage=ADDON.getAddonInfo('icon')),
+            True)
+        addDirectoryItem(
+            plugin.handle, plugin.url_for(show_section, "original"),
+            ListItem(
+                "Original", iconImage=ADDON.getAddonInfo('icon'),
+                thumbnailImage=ADDON.getAddonInfo('icon')),
+            True)
     if section_id == 'series':
         series = api.get_series()
         add_items(series)
@@ -65,17 +83,22 @@ def show_section(section_id):
         add_groups(programs)
     endOfDirectory(plugin.handle)
 
+
 @plugin.route('/series/<series_id>')
 def show_series(series_id):
-    programs = api.get_programs('p/search', params={'category_code': series_id})
+    programs = api.get_programs(
+        'p/search', params={'category_code': series_id})
     add_groups(programs)
     endOfDirectory(plugin.handle)
 
+
 @plugin.route('/group/<group_id>')
 def show_group(group_id):
-    programs = api.get_programs('p/search', params={'program_group_code': group_id})
+    programs = api.get_programs(
+        'p/search', params={'program_group_code': group_id})
     add_items(programs)
     endOfDirectory(plugin.handle)
+
 
 @plugin.route('/play/<media_id>')
 def play(media_id):
@@ -83,9 +106,11 @@ def play(media_id):
     setResolvedUrl(int(sys.argv[1]), True, liz)
     endOfDirectory(plugin.handle)
 
+
 @plugin.route('/settings')
 def open_settings():
     kodiutils.show_settings()
+
 
 @plugin.route('/login')
 def login():
@@ -93,11 +118,13 @@ def login():
     if login:
         kodiutils.refresh()
 
+
 @plugin.route('/logout')
 def logout():
     logout = api.logout()
     if logout:
         kodiutils.refresh()
+
 
 def add_groups(items):
     groups = set((item.group_name, item.group_code) for item in items)
@@ -109,16 +136,20 @@ def add_groups(items):
         addSortMethod(plugin.handle, 29)
         addDirectoryItem(plugin.handle, plugin.url_for(
             show_group, group[1]), liz, True)
-        
+
 
 def add_items(items):
     for item in items:
         if item.item_type == 'show':
-            liz = ListItem(item.name, iconImage=item.icon, thumbnailImage=item.thumbnail)
+            liz = ListItem(
+                item.name, iconImage=item.icon,
+                thumbnailImage=item.thumbnail)
             addDirectoryItem(plugin.handle, plugin.url_for(
                 show_series, item.media_id), liz, True)
         elif item.item_type == 'episode':
-            liz = ListItem(item.name, iconImage=item.icon, thumbnailImage=item.thumbnail)
+            liz = ListItem(
+                item.name, iconImage=item.icon,
+                thumbnailImage=item.thumbnail)
             liz.setInfo(
                 type='Video',
                 infoLabels={
@@ -132,9 +163,8 @@ def add_items(items):
             liz.setProperty('IsPlayable', 'true')
             addDirectoryItem(
                 plugin.handle, plugin.url_for(
-                play, item.media_id), liz)
-            
-        
+                    play, item.media_id), liz)
+
 
 def run():
     plugin.run()

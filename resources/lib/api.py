@@ -3,8 +3,6 @@ import requests
 
 from resources.lib import kodiutils
 
-
-
 API_BASE = 'https://api.njpwworld.com/ftv/v1/{}'
 API_KEY = 'PWmQBbZWp6nHYXpM'
 API_TOKEN = kodiutils.get_setting('api_token')
@@ -31,6 +29,7 @@ class ListItem(object):
         self.genre = ""
         self.on_watchlist = False
 
+
 def is_loggedin():
     if kodiutils.get_setting('api_token'):
         now = time()
@@ -40,11 +39,14 @@ def is_loggedin():
                 return
         return True
 
+
 def login():
     email = kodiutils.get_setting('email')
     password = kodiutils.get_setting('password')
     if not email or not password:
-        kodiutils.notification('Missing Credentials', 'Enter credentials in settings and try again', time=1000)
+        kodiutils.notification(
+            'Missing Credentials',
+            'Enter credentials in settings and try again', time=1000)
     r = requests.post(
         API_BASE.format('login'),
         params={
@@ -61,10 +63,13 @@ def login():
         kodiutils.set_setting("api_token_expiry", 60*60*24*14 + time())
         return True
     else:
-        kodiutils.notification('Login Failed', 'Login failed, check credentials and try again', time=1000)
+        kodiutils.notification(
+            'Login Failed',
+            'Login failed, check credentials and try again', time=1000)
+
 
 def logout():
-    r = requests.post(
+    requests.post(
         API_BASE.format('logout'),
         params={
             'api_key': API_KEY
@@ -75,6 +80,7 @@ def logout():
     kodiutils.set_setting('api_token', '')
     return True
 
+
 def get_series():
     r = requests.get(
         API_BASE.format('c/series'),
@@ -84,7 +90,7 @@ def get_series():
             'lang': LANG,
             'api_key': API_KEY
         }, headers=HEADERS)
-    
+
     items = []
 
     for i in r.json()['response']:
@@ -97,8 +103,9 @@ def get_series():
         item.media_id = i['category_code']
         item.air_date = i.get('display_start_datetime')
         items.append(item)
-    
+
     return items
+
 
 def get_programs(route, params={}, limit=None):
     items = []
@@ -119,6 +126,7 @@ def get_programs(route, params={}, limit=None):
         items.extend(get_items(r.json()['response']))
         params['offset'] += 200
 
+
 def get_items(response):
     items = []
     for i in response:
@@ -130,13 +138,15 @@ def get_items(response):
         item.icon = i['image_url'] + '.tif'
         item.thumbnail = i['image_url'] + '.tif'
         item.media_id = i['program_code']
-        item.air_date = i.get('exhibition_date', i.get('display_start_datetime'))
+        item.air_date = i.get(
+            'exhibition_date', i.get('display_start_datetime'))
         items.append(item)
-    
+
     return items
 
+
 def get_video_url(media_id):
-    data={			
+    data = {
         'api_key': API_KEY,
         'api_token': API_TOKEN,
         'lang': LANG,
@@ -154,5 +164,3 @@ def get_video_url(media_id):
         headers=HEADERS)
 
     return r.json()['playlist_url']
-
-    
