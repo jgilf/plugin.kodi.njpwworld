@@ -9,7 +9,7 @@ An active NJPW World subscription is required.
 
 NOTE: Make sure to fill in your login information in settings menu.
 
-# Japanese menus
+## Japanese menus
 If you wish to use the Japanese version of the plugin you will need to do the following:
 * Change language in app settings from English to Japanese
 * Go to: Settings > Interface > Skin > Fonts > Select "Arial Based"
