@@ -3,7 +3,7 @@ A NJPW World plugin for Kodi
 
 This is a release of a plugin to watch NJPW World content through Kodi. 
 
-Thrown together. Very likely to have bugs, please create an issue if you encounter any. Pull requests also welcomed.
+Thrown together. Very likely to have bugs, please create an issue if you encounter any. Please include logs if you do. See [this guide](http://kodi.wiki/view/Log_file/Easy) if you are not sure how. Pull requests also welcomed.
 
 An active NJPW World subscription is required.  
 
