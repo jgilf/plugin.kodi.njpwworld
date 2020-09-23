@@ -17,6 +17,8 @@ logger = logging.getLogger(__name__)
 def notification(header, message, time=5000, icon=ADDON.getAddonInfo('icon'), sound=True):
     xbmcgui.Dialog().notification(header, message, icon, time, sound)
 
+def get_input(message):
+    return xbmcgui.Dialog().input(message)
 
 def show_settings():
     ADDON.openSettings()
@@ -69,3 +71,9 @@ def kodi_json_request(params):
         logger.warn("[%s] %s" %
                     (params['method'], response['error']['message']))
         return None
+
+def refresh():
+    xbmc.executebuiltin('Container.Refresh')
+
+def set_sort(id):
+    xbmc.executebuiltin('Container.SetSortMethod(%s)' % id)

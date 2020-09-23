@@ -1,13 +1,18 @@
-# Welcome to your addon
+# plugin.video.njpwworld
+A NJPW World plugin for Kodi
 
-1. You might want to move this folder into the kodi addon folder for convinience when debugging. It might also be needed to be `enabled` inside of the kodi addon browser.
-2. Now start coding! Just open up the `.py` file in this folder and create what you would like Kodi to do! If you're creating a plugin, please check out [this kodi routing framework](https://github.com/tamland/kodi-plugin-routing) and copy a version of that module to your kodi addon folder.
-3. Write some tests, maybe? Don't forget to activate [travis](https://travis-ci.org/) access to your repository. We've created a test folder and a travis config file for that, otherwise just delete those ;)
-4. You might want to look at your `addon.xml` it should already be filled, but you will need to understand what your doing and might want to fill in some more info. So read up [here](http://kodi.wiki/view/Addon.xml).
-5. Do you want some settings for your addon? Check the `settings.xml` in the resources folder. And read up [here](http://kodi.wiki/view/Settings.xml).
-6. Read [this info](http://kodi.wiki/view/Add-on_structure#icon.png) and drop an icon for your addon into the `resource` folder and name it `icon.png`.
-7. Read [this](http://kodi.wiki/view/Add-on_structure#fanart.jpg) and drop a addon background into the `resource` folder and name it `fanart.jpg`.
-8. End up with a beautiful Kodi addon! Good for you :) Maybe you want to [share it with us](http://kodi.wiki/view/Submitting_Add-on_updates_on_Github)?
+This is a release of a plugin to watch NJPW World content through Kodi. 
 
-### Debugging
-To get the debug logging to work, just set the global kodi logging to true and the debug logging in your addons settings.
+Thrown together. Very likely to have bugs, please create an issue if you encounter any. Pull requests also welcomed.
+
+An active NJPW World subscription is required.  
+
+NOTE: Make sure to fill in your login information in settings menu.
+
+# Japanese menus
+If you wish to use the Japanese version of the plugin you will need to do the following:
+* Change language in app settings from English to Japanese
+* Go to: Settings > Interface > Skin > Fonts > Select "Arial Based"
+
+
+<a href="https://www.buymeacoffee.com/jgilf" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>

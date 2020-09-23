@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <settings>
-    <setting id="debug" type="bool" label="32001" default="false"/>
+    <category label="Account">
+	    <setting label="Email" type="text" id="email"/>
+	    <setting label="Password" type="text" id="password" option="hidden" />
+	</category>
+    <category label="Advanced">
+        <setting label="Language" id="lang" type="select" values="English|Japanese" default="English"/>
+        <setting id="debug" type="bool" label="32001" default="false"/>
+    </category>
 </settings>
 
