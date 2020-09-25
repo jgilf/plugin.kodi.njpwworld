@@ -1,4 +1,6 @@
 # plugin.video.njpwworld
+<a href="https://njpwworld.com/" target="_blank"><img src="https://njpwworld-img-cache2.akamaized.net/1/images/logo-en-liveandondemand.gif" alt="NJPW World"></a>
+
 A NJPW World plugin for Kodi
 
 This is a release of a plugin to watch NJPW World content through Kodi. 
